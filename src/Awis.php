@@ -15,6 +15,7 @@ class Awis {
 
     public function __construct($accessKeyId, $secretAccessKey)
     {
+        $this->client = new Client;
         $this->accessKeyId     = $accessKeyId;
         $this->secretAccessKey = $secretAccessKey;
     }
@@ -23,8 +24,7 @@ class Awis {
     {
         $this->dt = Carbon::now();
 
-        $client = new Client();
-        $request = $client->createRequest('GET', $this->endPoint);
+        $request = $this->client->createRequest('GET', $this->endPoint);
         $query = $request->getQuery();
         $query->set('Action', 'UrlInfo');
         $query->set('AWSAccessKeyId', $this->accessKeyId);
@@ -35,15 +35,14 @@ class Awis {
         $query->set('ResponseGroup', $responseGroup);
         $query->set('Signature', $this->generateSignature($query));
 
-        return $client->send($request);
+        return $this->client->send($request);
     }
 
     public function getTrafficHistory($url, $range = 31, $start = "20070801")
     {
         $this->dt = Carbon::now();
 
-        $client = new Client();
-        $request = $client->createRequest('GET', $this->endPoint);
+        $request = $this->client->createRequest('GET', $this->endPoint);
         $query = $request->getQuery();
         $query->set('Start', $start);
         $query->set('Action', 'TrafficHistory');
@@ -56,15 +55,14 @@ class Awis {
         $query->set('Range', $range);
         $query->set('Signature', $this->generateSignature($query));
 
-        return $client->send($request);
+        return $this->client->send($request);
     }
 
     public function getCategoryBrowse($url, $responseGroup = "Categories", $path, $descriptions = 'TRUE')
     {
         $this->dt = Carbon::now();
 
-        $client = new Client();
-        $request = $client->createRequest('GET', $this->endPoint);
+        $request = $this->client->createRequest('GET', $this->endPoint);
         $query = $request->getQuery();
         $query->set('Action', 'CategoryBrowse');
         $query->set('AWSAccessKeyId', $this->accessKeyId);
@@ -77,7 +75,7 @@ class Awis {
         $query->set('Descriptions', $descriptions);
         $query->set('Signature', $this->generateSignature($query));
 
-        return $client->send($request);
+        return $this->client->send($request);
     }
 
     public function getCategoryListings($url, $path, $sortBy, $recursive, $start, $count, $descriptions = 'TRUE')
@@ -86,8 +84,7 @@ class Awis {
 
         $this->dt = Carbon::now();
 
-        $client = new Client();
-        $request = $client->createRequest('GET', $this->endPoint);
+        $request = $this->client->createRequest('GET', $this->endPoint);
         $query = $request->getQuery();
         $query->set('Action', 'CategoryListings');
         $query->set('AWSAccessKeyId', $this->accessKeyId);
@@ -104,16 +101,15 @@ class Awis {
         $query->set('Descriptions', $descriptions);
         $query->set('Signature', $this->generateSignature($query));
 
-        return $client->send($request);
+        return $this->client->send($request);
     }
 
     public function getSitesLinkingIn($url, $count = 10, $start = 0)
     {
         $this->dt = Carbon::now();
         if( $count > 20) $count = 20;
-        
-        $client = new Client();
-        $request = $client->createRequest('GET', $this->endPoint);
+
+        $request = $this->client->createRequest('GET', $this->endPoint);
         $query = $request->getQuery();
         $query->set('Action', 'SitesLinkingIn');
         $query->set('AWSAccessKeyId', $this->accessKeyId);
@@ -126,7 +122,7 @@ class Awis {
         $query->set('Count', $count);
         $query->set('Signature', $this->generateSignature($query));
 
-        return $client->send($request);
+        return $this->client->send($request);
     }
 
     protected function generateSignature($query) {

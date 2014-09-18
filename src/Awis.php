@@ -107,9 +107,26 @@ class Awis {
         return $client->send($request);
     }
 
-    public function getSitesLinkingIn()
+    public function getSitesLinkingIn($url, $count = 10, $start = 0)
     {
+        $this->dt = Carbon::now();
+        if( $count > 20) $count = 20;
+        
+        $client = new Client();
+        $request = $client->createRequest('GET', $this->endPoint);
+        $query = $request->getQuery();
+        $query->set('Action', 'SitesLinkingIn');
+        $query->set('AWSAccessKeyId', $this->accessKeyId);
+        $query->set('SignatureMethod', $this->signatureMethod);
+        $query->set('SignatureVersion', $this->signatureVersion);
+        $query->set('Timestamp', $this->dt->toISO8601String());
+        $query->set('Url', $url);
+        $query->set('ResponseGroup', 'SitesLinkingIn');
+        $query->set('Start', $start);
+        $query->set('Count', $count);
+        $query->set('Signature', $this->generateSignature($query));
 
+        return $client->send($request);
     }
 
     protected function generateSignature($query) {

@@ -5,9 +5,9 @@ PHP package for making requests to Alexa Web Information Service
 
 ##Examples
 
-##### UrlInfo
-The `UrlInfo` action provides information about a website, such as:
+### UrlInfo
 
+The `UrlInfo` action provides information about a website, such as:
 * how popular the site is
 * what sites are related
 * contact information for the owner of the site
@@ -25,7 +25,7 @@ Usage:
 The `getUrlInfo` method supports a second argument that lets you set a valid `ResponseGroup`.
 The default is set to `ContentData`. Possible values for the response group are:
 
-###Response Groups
+#### Response Groups
 
 | Response Group  | Data Returned           |
 | --------------- | ----------------------- |
@@ -44,7 +44,7 @@ The default is set to `ContentData`. Possible values for the response group are:
 | LinksInCount    | A count of links pointing in to this site |
 | SiteData        | Title, description, and date the site was created |
 
-### Meta-Response Groups
+#### Meta-Response Groups
 
 | Response Group  | Data Returned           |
 | --------------- | ----------------------- |
@@ -52,7 +52,7 @@ The default is set to `ContentData`. Possible values for the response group are:
 | TrafficData     | Traffic rank and usage statistics (equivalent to ResponseGroup=Rank,UsageStats) |
 | ContentData     | Information about the site's content (equivalent to ResponseGroup=SiteData,AdultContent,Popups,Speed,Language) |
 
-##### TrafficHistory
+### TrafficHistory
 
 The TrafficHistory action returns the daily Alexa Traffic Rank, Reach per Million Users, and Unique Page Views per Million Users for each day since August 2007. This same data is used to produce the traffic graphs found on alexa.com.
 
@@ -66,7 +66,7 @@ Usage:
 
 ```
 
-##### CategoryBrowse
+### CategoryBrowse
 
 The `CategoryBrowse` action and `CategoryListings` actions together provide a directory service based on the Open Directory, www.dmoz.org, and enhanced with Alexa traffic data.
 
@@ -82,7 +82,7 @@ Usage:
 
 ```
 
-##### CategoryListings
+### CategoryListings
 
 The `CategoryListings` action is a directory service based on the Open Directory, www.dmoz.org. For any given category, it returns a list of site listings contained within that category.
 
@@ -96,7 +96,7 @@ Usage:
 
 ```
 
-##### SitesLinkingIn
+### SitesLinkingIn
 
 The `SitesLinkingIn` action returns a list of web sites linking to a given web site. Within each domain linking into the web site, only a single link - the one with the highest page-level traffic - is returned. The data is updated once every two months.
 

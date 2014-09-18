@@ -12,6 +12,7 @@ The `UrlInfo` action provides information about a website, such as:
 * what sites are related
 * contact information for the owner of the site
 
+Usage:
 ```php
 
     use Nticaric\Awis\Awis;
@@ -55,6 +56,7 @@ The default is set to `ContentData`. Possible values for the response group are:
 
 The TrafficHistory action returns the daily Alexa Traffic Rank, Reach per Million Users, and Unique Page Views per Million Users for each day since August 2007. This same data is used to produce the traffic graphs found on alexa.com.
 
+Usage:
 ```php
 
     use Nticaric\Awis\Awis;
@@ -70,6 +72,7 @@ The `CategoryBrowse` action and `CategoryListings` actions together provide a di
 
 For any given category, the CategoryBrowse action returns a list of sub-categories. Within a particular category you can use the CategoryListings action to get the documents within that category ordered by traffic.
 
+Usage:
 ```php
 
     use Nticaric\Awis\Awis;
@@ -83,6 +86,7 @@ For any given category, the CategoryBrowse action returns a list of sub-categori
 
 The `CategoryListings` action is a directory service based on the Open Directory, www.dmoz.org. For any given category, it returns a list of site listings contained within that category.
 
+Usage:
 ```php
 
     use Nticaric\Awis\Awis;
@@ -96,6 +100,7 @@ The `CategoryListings` action is a directory service based on the Open Directory
 
 The `SitesLinkingIn` action returns a list of web sites linking to a given web site. Within each domain linking into the web site, only a single link - the one with the highest page-level traffic - is returned. The data is updated once every two months.
 
+Usage:
 ```php
 
     use Nticaric\Awis\Awis;

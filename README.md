@@ -20,6 +20,9 @@ Usage:
     $awis = new Awis("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
     $response = $awis->getUrlInfo("example.com");
 
+    //prints the raw xml response
+    echo (string) $response->getBody();
+
 ```
 
 The `getUrlInfo` method supports a second argument that lets you set a valid `ResponseGroup`.

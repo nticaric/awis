@@ -52,6 +52,16 @@ The default is set to `ContentData`. Possible values for the response group are:
 | TrafficData     | Traffic rank and usage statistics (equivalent to ResponseGroup=Rank,UsageStats) |
 | ContentData     | Information about the site's content (equivalent to ResponseGroup=SiteData,AdultContent,Popups,Speed,Language) |
 
+Usage:
+```php
+
+    use Nticaric\Awis\Awis;
+
+    $awis = new Awis("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
+    $response = $awis->getTrafficHistory("example.com", "ContentData");
+
+```
+
 ### TrafficHistory
 
 The TrafficHistory action returns the daily Alexa Traffic Rank, Reach per Million Users, and Unique Page Views per Million Users for each day since August 2007. This same data is used to produce the traffic graphs found on alexa.com.

@@ -59,9 +59,25 @@ class Awis {
         return $client->send($request);
     }
 
-    public function getCategoryBrowse()
+    public function getCategoryBrowse($url, $responseGroup = "Categories", $path, $descriptions = 'TRUE')
     {
+        $this->dt = Carbon::now();
 
+        $client = new Client();
+        $request = $client->createRequest('GET', $this->endPoint);
+        $query = $request->getQuery();
+        $query->set('Action', 'CategoryBrowse');
+        $query->set('AWSAccessKeyId', $this->accessKeyId);
+        $query->set('SignatureMethod', $this->signatureMethod);
+        $query->set('SignatureVersion', $this->signatureVersion);
+        $query->set('Timestamp', $this->dt->toISO8601String());
+        $query->set('Url', $url);
+        $query->set('ResponseGroup', $responseGroup);
+        $query->set('Path', $path);
+        $query->set('Descriptions', $descriptions);
+        $query->set('Signature', $this->generateSignature($query));
+
+        return $client->send($request);
     }
 
     public function getCategoryListings()

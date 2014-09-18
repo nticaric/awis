@@ -58,7 +58,7 @@ Usage:
     use Nticaric\Awis\Awis;
 
     $awis = new Awis("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
-    $response = $awis->getTrafficHistory("example.com", "ContentData");
+    $response = $awis->getUrlInfo("example.com", "ContentData");
 
 ```
 

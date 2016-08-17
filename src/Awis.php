@@ -1,7 +1,8 @@
-<?php namespace Nticaric\Awis;
+<?php
+
+namespace Nticaric\Awis;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Query;
 use Carbon\Carbon;
 
 class Awis {
@@ -24,58 +25,73 @@ class Awis {
     {
         $this->dt = Carbon::now();
 
-        $request = $this->client->createRequest('GET', $this->endPoint);
-        $query = $request->getQuery();
-        $query->set('Action', 'UrlInfo');
-        $query->set('AWSAccessKeyId', $this->accessKeyId);
-        $query->set('SignatureMethod', $this->signatureMethod);
-        $query->set('SignatureVersion', $this->signatureVersion);
-        $query->set('Timestamp', $this->dt->toISO8601String());
-        $query->set('Url', $url);
-        $query->set('ResponseGroup', $responseGroup);
-        $query->set('Signature', $this->generateSignature($query));
+        $query = [
+            'Action'           => 'UrlInfo',
+            'AWSAccessKeyId'   => $this->accessKeyId,
+            'SignatureMethod'  => $this->signatureMethod,
+            'SignatureVersion' => $this->signatureVersion,
+            'Timestamp'        => $this->dt->toISO8601String(),
+            'Url'              => $url,
+            'ResponseGroup'    => $responseGroup,
+        ];
 
-        return $this->client->send($request);
+        $query['Signature'] = $this->generateSignature($query);
+
+        $response = $this->client->get($this->endPoint, [
+            'query' => $query
+        ]);
+
+        return $response;
     }
 
     public function getTrafficHistory($url, $range = 31, $start = "20070801")
     {
         $this->dt = Carbon::now();
 
-        $request = $this->client->createRequest('GET', $this->endPoint);
-        $query = $request->getQuery();
-        $query->set('Start', $start);
-        $query->set('Action', 'TrafficHistory');
-        $query->set('AWSAccessKeyId', $this->accessKeyId);
-        $query->set('SignatureMethod', $this->signatureMethod);
-        $query->set('SignatureVersion', $this->signatureVersion);
-        $query->set('Timestamp', $this->dt->toISO8601String());
-        $query->set('Url', $url);
-        $query->set('ResponseGroup', 'History');
-        $query->set('Range', $range);
-        $query->set('Signature', $this->generateSignature($query));
+        $query = [
+            'Start'            => $start,
+            'Action'           => 'TrafficHistory',
+            'AWSAccessKeyId'   => $this->accessKeyId,
+            'SignatureMethod'  => $this->signatureMethod,
+            'SignatureVersion' => $this->signatureVersion,
+            'Timestamp'        => $this->dt->toISO8601String(),
+            'Url'              => $url,
+            'ResponseGroup'    => 'History',
+            'Range'            => $range,
+        ];
 
-        return $this->client->send($request);
+        $query['Signature'] = $this->generateSignature($query);
+
+        $response = $this->client->get($this->endPoint, [
+            'query' => $query
+        ]);
+
+        return $response;
     }
 
     public function getCategoryBrowse($url, $responseGroup = "Categories", $path, $descriptions = 'TRUE')
     {
         $this->dt = Carbon::now();
 
-        $request = $this->client->createRequest('GET', $this->endPoint);
-        $query = $request->getQuery();
-        $query->set('Action', 'CategoryBrowse');
-        $query->set('AWSAccessKeyId', $this->accessKeyId);
-        $query->set('SignatureMethod', $this->signatureMethod);
-        $query->set('SignatureVersion', $this->signatureVersion);
-        $query->set('Timestamp', $this->dt->toISO8601String());
-        $query->set('Url', $url);
-        $query->set('ResponseGroup', $responseGroup);
-        $query->set('Path', $path);
-        $query->set('Descriptions', $descriptions);
-        $query->set('Signature', $this->generateSignature($query));
+        $query = [
+            'Action'           => 'CategoryBrowse',
+            'AWSAccessKeyId'   => $this->accessKeyId,
+            'SignatureMethod'  => $this->signatureMethod,
+            'SignatureVersion' => $this->signatureVersion,
+            'Timestamp'        => $this->dt->toISO8601String(),
+            'Url'              => $url,
+            'ResponseGroup'    => $responseGroup,
+            'Path'             => $path,
+            'Descriptions'     => $descriptions,
+        ];
 
-        return $this->client->send($request);
+        $query['Signature'] = $this->generateSignature($query);
+
+        $response = $this->client->get($this->endPoint, [
+            'query' => $query
+        ]);
+
+        return $response;
     }
 
     public function getCategoryListings($url, $path, $sortBy, $recursive, $start, $count, $descriptions = 'TRUE')
@@ -84,24 +100,29 @@ class Awis {
 
         $this->dt = Carbon::now();
 
-        $request = $this->client->createRequest('GET', $this->endPoint);
-        $query = $request->getQuery();
-        $query->set('Action', 'CategoryListings');
-        $query->set('AWSAccessKeyId', $this->accessKeyId);
-        $query->set('SignatureMethod', $this->signatureMethod);
-        $query->set('SignatureVersion', $this->signatureVersion);
-        $query->set('Timestamp', $this->dt->toISO8601String());
-        $query->set('Url', $url);
-        $query->set('ResponseGroup', 'Listings');
-        $query->set('Path', $path);
-        $query->set('SortBy', $sortBy);
-        $query->set('Recursive', $recursive);
-        $query->set('Start', $start);
-        $query->set('Count', $count);
-        $query->set('Descriptions', $descriptions);
-        $query->set('Signature', $this->generateSignature($query));
+        $query = [
+            'Action'           => 'CategoryListings',
+            'AWSAccessKeyId'   => $this->accessKeyId,
+            'SignatureMethod'  => $this->signatureMethod,
+            'SignatureVersion' => $this->signatureVersion,
+            'Timestamp'        => $this->dt->toISO8601String(),
+            'Url'              => $url,
+            'ResponseGroup'    => 'Listings',
+            'Path'             => $path,
+            'SortBy'           => $sortBy,
+            'Recursive'        => $recursive,
+            'Start'            => $start,
+            'Count'            => $count,
+            'Descriptions'     => $descriptions,
+        ];
 
-        return $this->client->send($request);
+        $query['Signature'] = $this->generateSignature($query);
+
+        $response = $this->client->get($this->endPoint, [
+            'query' => $query
+        ]);
+
+        return $response;
     }
 
     public function getSitesLinkingIn($url, $count = 10, $start = 0)
@@ -109,20 +130,25 @@ class Awis {
         $this->dt = Carbon::now();
         if( $count > 20) $count = 20;
 
-        $request = $this->client->createRequest('GET', $this->endPoint);
-        $query = $request->getQuery();
-        $query->set('Action', 'SitesLinkingIn');
-        $query->set('AWSAccessKeyId', $this->accessKeyId);
-        $query->set('SignatureMethod', $this->signatureMethod);
-        $query->set('SignatureVersion', $this->signatureVersion);
-        $query->set('Timestamp', $this->dt->toISO8601String());
-        $query->set('Url', $url);
-        $query->set('ResponseGroup', 'SitesLinkingIn');
-        $query->set('Start', $start);
-        $query->set('Count', $count);
-        $query->set('Signature', $this->generateSignature($query));
+        $query = [
+            'Action'           => 'SitesLinkingIn',
+            'AWSAccessKeyId'   => $this->accessKeyId,
+            'SignatureMethod'  => $this->signatureMethod,
+            'SignatureVersion' => $this->signatureVersion,
+            'Timestamp'        => $this->dt->toISO8601String(),
+            'Url'              => $url,
+            'ResponseGroup'    => 'SitesLinkingIn',
+            'Start'            => $start,
+            'Count'            => $count,
+        ];
 
-        return $this->client->send($request);
+        $query['Signature'] = $this->generateSignature($query);
+
+        $response = $this->client->get($this->endPoint, [
+            'query' => $query
+        ]);
+
+        return $response;
     }
 
     protected function generateSignature($query) {
@@ -132,9 +158,7 @@ class Awis {
     }
 
     protected function buildQueryParams($query) {
-        $query->remove('Signature');
-        $params = $query->toArray();
-        ksort($params);
-        return new Query($params);
+        ksort($query);
+        return http_build_query($query, null, '&', PHP_QUERY_RFC3986);
     }
 }

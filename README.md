@@ -3,7 +3,7 @@ awis
 
 PHP package for making requests to Alexa Web Information Service
 
-##Instalation
+##Installation
 
 The easiest way to install Awis is via [composer](http://getcomposer.org/). Create the following `composer.json` file and run the `php composer.phar install` command to install it.
 

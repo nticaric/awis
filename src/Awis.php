@@ -8,7 +8,7 @@ class Awis {
     
     protected $accessKeyId;
     protected $secretAccessKey;
-    protected $endPoint = "http://awis.amazonaws.com/";
+    protected $endPoint = "https://awis.amazonaws.com/";
     protected $dt;
     protected $signatureMethod = "HmacSHA256";
     protected $signatureVersion = 2;

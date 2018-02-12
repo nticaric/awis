@@ -2,7 +2,7 @@
     "name": "nticaric/awis",
     "description": "PHP package for making requests to Alexa Web Information Service",
     "homepage": "http://github.com/nticaric/awis",
-    "license": "GNU General Public License",
+    "license": "MIT",
     "type": "library",
     "authors": [
         {
